@@ -1,27 +1,25 @@
-const correctAnswers = {
-  q1: "b",
-  q2: "a",
-  q3: "c",
-  q4: "a",
-  q5: "c",
-  q6: "b",
-  q7: "a",
-  q8: "b",
-  q9: "c"
-};
+// Array of correct answers for q1 to q9
+const correctAnswers = ['b', 'b', 'b', 'a', 'a', 'a', 'c', 'a', 'b'];
 
 function checkScore() {
   let score = 0;
+  let resultDetails = ""; // store feedback for each question
 
-  for (let question in correctAnswers) {
-    const selected = document.querySelector(
-      `input[name="${question}"]:checked`
-    );
+  for (let i = 1; i <= correctAnswers.length; i++) {
+    const question = document.querySelector(`input[name="q${i}"]:checked`);
 
-    if (selected && selected.value === correctAnswers[question]) {
-      score++;
+    if (question) {
+      if (question.value === correctAnswers[i - 1]) {
+        score++;
+        resultDetails += `Question ${i}: Correct ✅\n`;
+      } else {
+        resultDetails += `Question ${i}: Incorrect ❌ (Correct: ${correctAnswers[i - 1].toUpperCase()})\n`;
+      }
+    } else {
+      resultDetails += `Question ${i}: Not Answered ⚠️ (Correct: ${correctAnswers[i - 1].toUpperCase()})\n`;
     }
   }
 
-  alert("Your score is " + score + " out of 9");
+  // Show final score and detailed feedback
+  alert(`You scored ${score} out of ${correctAnswers.length}!\n\nDetails:\n${resultDetails}`);
 }
